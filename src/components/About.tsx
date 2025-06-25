@@ -43,14 +43,14 @@ const About = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in slide-in-from-bottom duration-1000 ${
+              className={`p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-500 transform animate-in slide-in-from-bottom duration-1000 ${
                 item.color === 'orange' ? 'hover:border-orange-400/50 hover:shadow-lg hover:shadow-orange-400/25' :
                 item.color === 'blue' ? 'hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-400/25' :
                 'hover:border-teal-400/50 hover:shadow-lg hover:shadow-teal-400/25'
               }`}
               style={{animationDelay: `${index * 200}ms`}}
             >
-              <item.icon className={`h-12 w-12 mb-4 animate-bounce ${
+              <item.icon className={`h-12 w-12 mb-4 ${
                 item.color === 'orange' ? 'text-orange-400' :
                 item.color === 'blue' ? 'text-blue-400' :
                 'text-teal-400'

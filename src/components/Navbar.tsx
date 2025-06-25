@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,7 +28,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
-            <Bot className="h-8 w-8 text-orange-400 animate-bounce group-hover:animate-spin transition-all duration-300" />
+            <img src="/favicon.png" alt="Logo" className="h-8 w-8 rounded-full animate-bounce group-hover:animate-spin transition-all duration-1000" />
             <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
               code2robot
             </span>
@@ -64,7 +63,7 @@ const Navbar = () => {
         </div>
 
         {isOpen && (
-          <div className="md:hidden bg-slate-900/95 backdrop-blur-md rounded-lg mt-2 p-4 animate-in slide-in-from-top duration-300">
+          <div className="md:hidden bg-slate-900/95 backdrop-blur-md rounded-lg mt-0 p-4 animate-in slide-in-from-top duration-300">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {["Home", "About", "Products", "Contact"].map((item, index) => (
                 <button

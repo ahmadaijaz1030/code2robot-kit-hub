@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <Bot className="h-8 w-8 text-orange-400 animate-bounce" />
+              <img src="/favicon.png" alt="Logo" className="h-8 w-8 rounded-full animate-bounce" />
               <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
                 code2robot
               </span>

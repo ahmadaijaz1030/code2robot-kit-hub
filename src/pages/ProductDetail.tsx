@@ -1,4 +1,3 @@
-
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Star, Check, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -94,6 +93,19 @@ const ProductDetail = () => {
       reviews: 203
     }
   };
+
+  if (!id) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">Invalid Product ID</h1>
+          <Link to="/" className="text-orange-400 hover:text-orange-300">
+            Return to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   const product = products[id as keyof typeof products];
 

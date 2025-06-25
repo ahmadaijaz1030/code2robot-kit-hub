@@ -65,35 +65,43 @@ const Products = () => {
   ];
 
   return (
-    <section id="products" className="py-20 bg-gradient-to-br from-slate-900 to-slate-800">
+    <section id="products" className="py-20 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Products</span>
+        <div className="text-center mb-16 animate-in fade-in duration-1000">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 animate-in slide-in-from-top duration-1000">
+            Our <span className="bg-gradient-to-r from-orange-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">Products</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-in slide-in-from-bottom duration-1000 delay-300">
             Discover our range of high-quality robotics kits and educational materials designed to inspire and educate.
           </p>
         </div>
 
         {/* Robotics Kits */}
         <div className="mb-20">
-          <div className="flex items-center justify-center mb-12">
-            <Cpu className="h-8 w-8 text-blue-400 mr-3" />
+          <div className="flex items-center justify-center mb-12 animate-in slide-in-from-left duration-1000 delay-500">
+            <Cpu className="h-8 w-8 text-orange-400 mr-3 animate-spin" />
             <h3 className="text-2xl md:text-3xl font-bold text-white">Robotics Kits</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {kits.map((kit, index) => (
-              <Card key={kit.id} className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 border-slate-600 hover:border-blue-500/50 transition-all duration-300 transform hover:scale-105 animate-fade-in backdrop-blur-sm" style={{animationDelay: `${index * 150}ms`}}>
+              <Card 
+                key={kit.id} 
+                className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 border-slate-600 hover:border-orange-500/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in zoom-in duration-700 backdrop-blur-sm hover:shadow-xl hover:shadow-orange-400/25 group" 
+                style={{animationDelay: `${700 + index * 200}ms`}}
+              >
                 <CardHeader className="relative">
                   {kit.badge && (
-                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-semibold animate-bounce">
                       {kit.badge}
                     </div>
                   )}
                   <div className="aspect-video mb-4 rounded-lg overflow-hidden">
-                    <img src={kit.image} alt={kit.name} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                    <img 
+                      src={kit.image} 
+                      alt={kit.name} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                    />
                   </div>
                   <CardTitle className="text-white text-xl">{kit.name}</CardTitle>
                   <CardDescription className="text-gray-300">{kit.description}</CardDescription>
@@ -103,7 +111,10 @@ const Products = () => {
                   <div className="flex items-center mb-4">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`h-4 w-4 ${i < Math.floor(kit.rating) ? 'text-yellow-400 fill-current' : 'text-gray-400'}`} />
+                        <Star 
+                          key={i} 
+                          className={`h-4 w-4 transition-colors duration-300 ${i < Math.floor(kit.rating) ? 'text-orange-400 fill-current' : 'text-gray-400'}`} 
+                        />
                       ))}
                       <span className="text-white ml-2 text-sm">{kit.rating}</span>
                       <span className="text-gray-400 ml-1 text-sm">({kit.reviews})</span>
@@ -112,8 +123,8 @@ const Products = () => {
                   
                   <ul className="space-y-2 mb-4">
                     {kit.features.map((feature, idx) => (
-                      <li key={idx} className="text-gray-300 text-sm flex items-center">
-                        <ArrowRight className="h-3 w-3 text-blue-400 mr-2" />
+                      <li key={idx} className="text-gray-300 text-sm flex items-center group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: `${idx * 50}ms`}}>
+                        <ArrowRight className="h-3 w-3 text-teal-400 mr-2" />
                         {feature}
                       </li>
                     ))}
@@ -125,7 +136,7 @@ const Products = () => {
                     <span className="text-2xl font-bold text-white">{kit.price}</span>
                     <span className="text-gray-400 line-through text-sm">{kit.originalPrice}</span>
                   </div>
-                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  <Button className="bg-gradient-to-r from-orange-600 via-blue-600 to-teal-600 hover:from-orange-700 hover:via-blue-700 hover:to-teal-700 transition-all duration-300 hover:shadow-lg hover:shadow-orange-400/25 transform hover:scale-110">
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     Add to Cart
                   </Button>
@@ -137,29 +148,33 @@ const Products = () => {
 
         {/* Manuals */}
         <div>
-          <div className="flex items-center justify-center mb-12">
-            <Book className="h-8 w-8 text-purple-400 mr-3" />
+          <div className="flex items-center justify-center mb-12 animate-in slide-in-from-right duration-1000 delay-1000">
+            <Book className="h-8 w-8 text-teal-400 mr-3 animate-bounce" />
             <h3 className="text-2xl md:text-3xl font-bold text-white">Educational Manuals</h3>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {manuals.map((manual, index) => (
-              <Card key={manual.id} className="bg-gradient-to-br from-purple-800/20 to-blue-800/20 border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 transform hover:scale-105 animate-fade-in backdrop-blur-sm" style={{animationDelay: `${index * 200}ms`}}>
+              <Card 
+                key={manual.id} 
+                className="bg-gradient-to-br from-teal-800/20 to-blue-800/20 border-teal-500/30 hover:border-teal-400/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in slide-in-from-bottom duration-1000 backdrop-blur-sm hover:shadow-xl hover:shadow-teal-400/25 group" 
+                style={{animationDelay: `${1200 + index * 300}ms`}}
+              >
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
                     <CardTitle className="text-white text-xl">{manual.name}</CardTitle>
-                    <span className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">{manual.type}</span>
+                    <span className="bg-teal-500/20 text-teal-300 px-3 py-1 rounded-full text-sm animate-pulse">{manual.type}</span>
                   </div>
                   <CardDescription className="text-gray-300">{manual.description}</CardDescription>
-                  <p className="text-purple-300 text-sm mt-2">{manual.pages}</p>
+                  <p className="text-teal-300 text-sm mt-2">{manual.pages}</p>
                 </CardHeader>
                 
                 <CardContent>
                   <h4 className="text-white font-semibold mb-3">Topics Covered:</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {manual.topics.map((topic, idx) => (
-                      <div key={idx} className="flex items-center">
-                        <Wrench className="h-3 w-3 text-purple-400 mr-2" />
+                      <div key={idx} className="flex items-center group-hover:translate-x-1 transition-transform duration-300" style={{transitionDelay: `${idx * 75}ms`}}>
+                        <Wrench className="h-3 w-3 text-blue-400 mr-2" />
                         <span className="text-gray-300 text-sm">{topic}</span>
                       </div>
                     ))}
@@ -168,7 +183,7 @@ const Products = () => {
                 
                 <CardFooter className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-white">{manual.price}</span>
-                  <Button variant="outline" className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white">
+                  <Button variant="outline" className="border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-teal-400/25 transform hover:scale-110">
                     <Book className="h-4 w-4 mr-2" />
                     Download
                   </Button>

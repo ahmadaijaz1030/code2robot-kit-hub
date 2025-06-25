@@ -41,7 +41,7 @@ const Products = () => {
   ];
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = "+1234567890"; // Replace with your actual WhatsApp number
+    const phoneNumber = "+923008427008"; // Replace with your actual WhatsApp number
     const message = "Hi! I'm interested in your robotics products. Can you help me choose the right kit?";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

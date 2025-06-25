@@ -1,6 +1,7 @@
 
-import { ShoppingCart, Book, Wrench, Star } from "lucide-react";
+import { ShoppingCart, Book, Wrench, Star, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const products = [
@@ -11,7 +12,9 @@ const Products = () => {
       image: "/placeholder.svg",
       description: "Perfect for students and beginners. Includes all components and step-by-step manual.",
       features: ["Easy assembly", "Educational manual", "Online support", "Age 12+"],
-      category: "kit"
+      category: "kit",
+      rating: 4.8,
+      reviews: 124
     },
     {
       id: 2,
@@ -20,7 +23,9 @@ const Products = () => {
       image: "/placeholder.svg",
       description: "For experienced makers. Advanced sensors, motors, and programming capabilities.",
       features: ["Advanced sensors", "Programmable", "Bluetooth connectivity", "Age 16+"],
-      category: "kit"
+      category: "kit",
+      rating: 4.9,
+      reviews: 87
     },
     {
       id: 3,
@@ -29,12 +34,32 @@ const Products = () => {
       image: "/placeholder.svg",
       description: "Comprehensive guides covering theory, assembly, and programming.",
       features: ["Digital download", "Video tutorials", "Project examples", "Lifetime access"],
-      category: "manual"
+      category: "manual",
+      rating: 4.7,
+      reviews: 203
     }
   ];
 
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "+1234567890"; // Replace with your actual WhatsApp number
+    const message = "Hi! I'm interested in your robotics products. Can you help me choose the right kit?";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
-    <section id="products" className="py-20 bg-gradient-to-b from-slate-800 to-slate-900">
+    <section id="products" className="py-20 bg-gradient-to-b from-slate-900 to-slate-950">
+      {/* WhatsApp Floating Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={handleWhatsAppClick}
+          className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce"
+          size="icon"
+        >
+          <MessageCircle className="h-6 w-6 text-white" />
+        </Button>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-in fade-in duration-1000">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -67,6 +92,24 @@ const Products = () => {
                     {product.price}
                   </span>
                 </div>
+
+                <div className="flex items-center mb-4">
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < Math.floor(product.rating)
+                            ? "text-orange-400 fill-current"
+                            : "text-gray-600"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-gray-400 text-sm ml-2">
+                    {product.rating} ({product.reviews})
+                  </span>
+                </div>
                 
                 <p className="text-gray-400 mb-4 leading-relaxed">{product.description}</p>
                 
@@ -79,12 +122,21 @@ const Products = () => {
                   ))}
                 </div>
                 
-                <Button 
-                  className="w-full bg-gradient-to-r from-orange-600 via-blue-600 to-teal-600 hover:from-orange-700 hover:via-blue-700 hover:to-teal-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Add to Cart
-                </Button>
+                <div className="space-y-3">
+                  <Link to={`/product/${product.id}`}>
+                    <Button 
+                      className="w-full bg-gradient-to-r from-orange-600 via-blue-600 to-teal-600 hover:from-orange-700 hover:via-blue-700 hover:to-teal-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                    >
+                      View Details
+                    </Button>
+                  </Link>
+                  <Button 
+                    className="w-full bg-white/5 border border-white/20 text-white hover:bg-white/10 font-semibold py-3 rounded-lg transition-all duration-300"
+                  >
+                    <ShoppingCart className="h-5 w-5 mr-2" />
+                    Add to Cart
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

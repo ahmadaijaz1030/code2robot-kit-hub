@@ -3,6 +3,7 @@ import { ArrowLeft, ShoppingCart, Star, Check, MessageCircle } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -94,6 +95,8 @@ const ProductDetail = () => {
     }
   };
 
+  const isMobile = useIsMobile();
+
   if (!id) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 flex items-center justify-center">
@@ -134,15 +137,17 @@ const ProductDetail = () => {
       <Navbar />
       
       {/* WhatsApp Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={handleWhatsAppClick}
-          className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6 text-white" />
-        </Button>
-      </div>
+      {isMobile && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <Button
+            onClick={handleWhatsAppClick}
+            className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce"
+            size="icon"
+          >
+            <MessageCircle className="h-6 w-6 text-white" />
+          </Button>
+        </div>
+      )}
 
       <div className="pt-20 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -230,14 +235,16 @@ const ProductDetail = () => {
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Add to Cart
                 </Button>
-                <Button
-                  onClick={handleWhatsAppClick}
-                  variant="outline"
-                  className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white transition-all duration-300"
-                >
-                  <MessageCircle className="h-5 w-5 mr-2" />
-                  WhatsApp
-                </Button>
+                {isMobile && (
+                  <Button
+                    onClick={handleWhatsAppClick}
+                    variant="outline"
+                    className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white transition-all duration-300"
+                  >
+                    <MessageCircle className="h-5 w-5 mr-2" />
+                    WhatsApp
+                  </Button>
+                )}
               </div>
             </div>
           </div>

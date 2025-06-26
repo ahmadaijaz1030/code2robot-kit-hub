@@ -1,4 +1,3 @@
-
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
@@ -9,11 +8,13 @@ import {
 } from "@/components/ui/carousel";
 import { useCallback, useEffect, useState } from "react";
 import type { CarouselApi } from "@/components/ui/carousel";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Testimonials = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const isMobile = useIsMobile();
 
   const testimonials = [
     {
@@ -222,17 +223,19 @@ const Testimonials = () => {
               >
                 Shop Now
               </button>
-              <button 
-                onClick={() => {
-                  const phoneNumber = "+923008427008";
-                  const message = "Hi! I'd like to know more about your robotics kits and join your community.";
-                  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                  window.open(whatsappUrl, '_blank');
-                }}
-                className="border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
-              >
-                Contact Us
-              </button>
+              {isMobile && (
+                <button 
+                  onClick={() => {
+                    const phoneNumber = "+923008427008";
+                    const message = "Hi! I'd like to know more about your robotics kits and join your community.";
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                  }}
+                  className="border-2 border-orange-400 text-orange-400 hover:bg-orange-400 hover:text-white px-10 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
+                >
+                  Contact Us
+                </button>
+              )}
             </div>
           </div>
         </div>

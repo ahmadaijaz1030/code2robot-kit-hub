@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Minus, Plus, Trash2, ShoppingBag, MessageCircle, ArrowLeft } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartCount } = useCart();
@@ -18,6 +18,7 @@ const Cart = () => {
     email: ''
   });
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
     updateQuantity(id, newQuantity);
@@ -220,13 +221,15 @@ Please confirm this order. Thank you!`;
                     </div>
                   </div>
 
-                  <Button
-                    onClick={handleWhatsAppCheckout}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                  >
-                    <MessageCircle className="h-5 w-5 mr-2" />
-                    Checkout via WhatsApp
-                  </Button>
+                  {isMobile && (
+                    <Button
+                      onClick={handleWhatsAppCheckout}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                    >
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      Checkout via WhatsApp
+                    </Button>
+                  )}
                   
                   <Button
                     onClick={clearCart}

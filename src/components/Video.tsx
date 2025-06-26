@@ -104,7 +104,7 @@ const Video = () => {
                 <Button
                   onClick={togglePlay}
                   size="lg"
-                  className="bg-gradient-to-r from-orange-600 via-blue-600 to-teal-600 hover:from-orange-700 hover:via-blue-700 hover:to-teal-700 text-white h-20 w-20 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-110 animate-pulse"
+                  className="bg-gradient-to-r from-orange-600 via-blue-600 to-teal-600 hover:from-orange-700 hover:via-blue-700 hover:to-teal-700 text-white h-20 w-20 rounded-full shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-110"
                 >
                   <Play className="h-10 w-10 ml-1" />
                 </Button>

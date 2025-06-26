@@ -1,13 +1,14 @@
-
 import { ShoppingCart, Book, Wrench, Star, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Products = () => {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   
   const products = [
     {
@@ -70,15 +71,17 @@ const Products = () => {
   return (
     <section id="products" className="py-10 sm:py-20 bg-gradient-to-b from-slate-900 to-slate-950">
       {/* WhatsApp Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          onClick={handleWhatsAppClick}
-          className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-1000 animate-bounce"
-          size="icon"
-        >
-          <MessageCircle className="h-6 w-6 text-white" />
-        </Button>
-      </div>
+      {isMobile && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <Button
+            onClick={handleWhatsAppClick}
+            className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 shadow-lg hover:shadow-xl transition-all duration-1000 animate-bounce"
+            size="icon"
+          >
+            <MessageCircle className="h-6 w-6 text-white" />
+          </Button>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-in fade-in duration-1000">

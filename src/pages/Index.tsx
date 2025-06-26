@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Products from "@/components/Products";
+import Video from "@/components/Video";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -28,6 +29,7 @@ const Index = () => {
       <Hero />
       <About />
       <Products />
+      <Video />
       <Testimonials />
       <Contact />
       <Footer />

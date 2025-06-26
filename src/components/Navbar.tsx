@@ -47,10 +47,16 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              {["Home", "About", "Products", "Contact"].map((item, index) => (
+              {["Home", "About", "Products", "Videos", "Contact"].map((item, index) => (
                 <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase() === 'home' ? 'hero' : item.toLowerCase())}
+                  onClick={() => {
+                    if (item === "Videos") {
+                      navigate("/videos");
+                    } else {
+                      scrollToSection(item.toLowerCase() === 'home' ? 'hero' : item.toLowerCase());
+                    }
+                  }}
                   className="text-gray-300 hover:text-orange-400 px-3 py-2 text-sm font-medium transition-all duration-300 relative group transform hover:scale-110"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -93,10 +99,17 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden bg-slate-900/95 backdrop-blur-md rounded-lg mt-0 p-4 animate-in slide-in-from-top duration-300">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {["Home", "About", "Products", "Contact"].map((item, index) => (
+              {["Home", "About", "Products", "Videos", "Contact"].map((item, index) => (
                 <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase() === 'home' ? 'hero' : item.toLowerCase())}
+                  onClick={() => {
+                    if (item === "Videos") {
+                      navigate("/videos");
+                      setIsOpen(false);
+                    } else {
+                      scrollToSection(item.toLowerCase() === 'home' ? 'hero' : item.toLowerCase());
+                    }
+                  }}
                   className="text-gray-300 hover:text-orange-400 block px-3 py-2 text-base font-medium w-full text-left transition-all duration-300 hover:bg-orange-400/10 rounded-md transform hover:translate-x-2"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >

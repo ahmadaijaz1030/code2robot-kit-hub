@@ -26,6 +26,16 @@ function ScrollToTopOnMobile() {
   return null;
 }
 
+function ScrollToTopOnVideos() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    if (pathname === "/videos") {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  }, [pathname]);
+  return null;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <CartProvider>
@@ -34,6 +44,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTopOnMobile />
+          <ScrollToTopOnVideos />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/product/:id" element={<ProductDetail />} />

@@ -1,12 +1,12 @@
-
 import { useState } from "react";
-import { Play, Clock, Eye, Star } from "lucide-react";
+import { Play, Clock, Eye, Star, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
 const Videos = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
   
   const categories = [
     { id: "all", name: "All Videos", count: 12 },
@@ -21,6 +21,7 @@ const Videos = () => {
       title: "Getting Started with Robotics - Complete Beginner Guide",
       description: "Learn the fundamentals of robotics with our comprehensive beginner-friendly tutorial.",
       thumbnail: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       duration: "15:32",
       views: "25.4K",
       category: "tutorials",
@@ -32,6 +33,7 @@ const Videos = () => {
       title: "Advanced Robot Programming Techniques",
       description: "Master advanced programming concepts for creating intelligent robotic systems.",
       thumbnail: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       duration: "22:18",
       views: "18.2K",
       category: "tutorials",
@@ -42,6 +44,7 @@ const Videos = () => {
       title: "Smart Home Robot - Product Demo",
       description: "See our latest smart home robotics kit in action with real-world applications.",
       thumbnail: "https://images.unsplash.com/photo-1439337153520-7082a56a81f4?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
       duration: "8:45",
       views: "32.1K",
       category: "demos",
@@ -52,6 +55,7 @@ const Videos = () => {
       title: "Student Success Story - MIT Robotics Lab",
       description: "How our kits helped MIT students excel in their robotics competitions.",
       thumbnail: "https://images.unsplash.com/photo-1493397212122-2b85dda8106b?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
       duration: "12:30",
       views: "15.7K",
       category: "testimonials",
@@ -63,6 +67,7 @@ const Videos = () => {
       title: "Building Your First Walking Robot",
       description: "Step-by-step guide to creating a walking robot using our advanced kit.",
       thumbnail: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
       duration: "28:15",
       views: "41.3K",
       category: "tutorials",
@@ -73,6 +78,7 @@ const Videos = () => {
       title: "AI Integration with Robotics Kits",
       description: "Learn how to integrate artificial intelligence with our robotics platforms.",
       thumbnail: "https://images.unsplash.com/photo-1460574283810-2aab119d8511?w=600&h=400&fit=crop",
+      videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
       duration: "19:42",
       views: "22.8K",
       category: "tutorials",
@@ -86,9 +92,58 @@ const Videos = () => {
 
   const featuredVideos = videos.filter(video => video.featured);
 
+  const handleVideoClick = (video: any) => {
+    setSelectedVideo(video);
+  };
+
+  const closeVideoModal = () => {
+    setSelectedVideo(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800">
       <Navbar />
+      
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative w-full max-w-4xl bg-slate-900 rounded-2xl overflow-hidden">
+            <Button
+              onClick={closeVideoModal}
+              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+            <video
+              className="w-full h-auto max-h-[80vh]"
+              controls
+              autoPlay
+              poster={selectedVideo.thumbnail}
+            >
+              <source src={selectedVideo.videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold text-white mb-2">{selectedVideo.title}</h3>
+              <p className="text-gray-300">{selectedVideo.description}</p>
+              <div className="flex items-center space-x-4 mt-4 text-sm text-gray-400">
+                <span className="flex items-center space-x-1">
+                  <Clock className="h-4 w-4" />
+                  <span>{selectedVideo.duration}</span>
+                </span>
+                <span className="flex items-center space-x-1">
+                  <Eye className="h-4 w-4" />
+                  <span>{selectedVideo.views}</span>
+                </span>
+                <span className="flex items-center space-x-1">
+                  <Star className="h-4 w-4 text-orange-400 fill-current" />
+                  <span>{selectedVideo.rating}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Hero Section */}
       <section className="pt-24 pb-16 relative overflow-hidden">
@@ -119,7 +174,8 @@ const Videos = () => {
             {featuredVideos.map((video) => (
               <div
                 key={video.id}
-                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:bg-white/10 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20"
+                className="group relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl overflow-hidden hover:bg-white/10 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/20 cursor-pointer"
+                onClick={() => handleVideoClick(video)}
               >
                 <div className="relative">
                   <img
@@ -198,7 +254,8 @@ const Videos = () => {
             {filteredVideos.map((video) => (
               <div
                 key={video.id}
-                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-xl hover:shadow-orange-500/20"
+                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-xl hover:shadow-orange-500/20 cursor-pointer"
+                onClick={() => handleVideoClick(video)}
               >
                 <div className="relative">
                   <img

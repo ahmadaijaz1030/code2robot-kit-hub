@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Bot } from "lucide-react";
+import { Menu, X, Bot, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { getCartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,15 +61,32 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-orange-400 hover:bg-orange-400/10 transition-all duration-300"
-            >
-              {isOpen ? <X className="h-6 w-6 rotate-180 transition-transform duration-300" /> : <Menu className="h-6 w-6" />}
-            </Button>
+          <div className="flex items-center space-x-4">
+            <Link to="/cart" className="relative">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:text-orange-400 hover:bg-orange-400/10 transition-all duration-300"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-teal-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-bounce">
+                    {getCartCount()}
+                  </span>
+                )}
+              </Button>
+            </Link>
+
+            <div className="md:hidden">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-white hover:text-orange-400 hover:bg-orange-400/10 transition-all duration-300"
+              >
+                {isOpen ? <X className="h-6 w-6 rotate-180 transition-transform duration-300" /> : <Menu className="h-6 w-6" />}
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -84,6 +103,11 @@ const Navbar = () => {
                   {item}
                 </button>
               ))}
+              <Link to="/cart" className="block">
+                <button className="text-gray-300 hover:text-orange-400 px-3 py-2 text-base font-medium w-full text-left transition-all duration-300 hover:bg-orange-400/10 rounded-md transform hover:translate-x-2">
+                  Cart ({getCartCount()})
+                </button>
+              </Link>
             </div>
           </div>
         )}

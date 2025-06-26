@@ -2,8 +2,13 @@
 import { ShoppingCart, Book, Wrench, Star, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Products = () => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+  
   const products = [
     {
       id: 1,
@@ -40,8 +45,23 @@ const Products = () => {
     }
   ];
 
+  const handleAddToCart = (product: typeof products[0]) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      features: product.features
+    });
+    
+    toast({
+      title: "Added to Cart!",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
   const handleWhatsAppClick = () => {
-    const phoneNumber = "+923008427008"; // Replace with your actual WhatsApp number
+    const phoneNumber = "+923008427008";
     const message = "Hi! I'm interested in your robotics products. Can you help me choose the right kit?";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -131,6 +151,7 @@ const Products = () => {
                     </Button>
                   </Link>
                   <Button 
+                    onClick={() => handleAddToCart(product)}
                     className="w-full bg-white/5 border border-white/20 text-white hover:bg-white/10 font-semibold py-3 rounded-lg transition-all duration-300"
                   >
                     <ShoppingCart className="h-5 w-5 mr-2" />
